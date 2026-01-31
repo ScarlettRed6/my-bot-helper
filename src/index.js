@@ -31,4 +31,11 @@ for (const folder of commandFolders) {
   }//End of inner loop
 }//End of outer loop
 
+client.on(Events.InteractionCreate, (interaction) => {
+  if (!interaction.isChatInputCommand()) return;
+  console.log(interaction);
+});
+
+
+
 client.login(token);
