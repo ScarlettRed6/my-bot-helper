@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { Client, Collection, Events, GatewayIntentBits, MessageFlags } from 'discord.js';
+import { Client, Collection, Events, GatewayIntentBits, Message, MessageFlags } from 'discord.js';
 
 const token = process.env.DISCORD_TOKEN;
 
@@ -31,9 +31,32 @@ for (const folder of commandFolders) {
   }//End of inner loop
 }//End of outer loop
 
-client.on(Events.InteractionCreate, (interaction) => {
+client.on(Events.InteractionCreate, async (interaction) => {
   if (!interaction.isChatInputCommand()) return;
-  console.log(interaction);
+  const command = interaction.client.commands.get(interaction.commandName);
+
+  if (!command) {
+    console.error(`No command matching ${interaction.commandName} was found.`);
+    return;
+  }
+  try {
+    await command.execute(interaction);
+  } catch (error) {
+    console.error(error);
+    if (interaction.replied || interaction.deferred) {
+      await interaction.followUp({
+        content: 'There was an error while executing this command!',
+        flags: MessageFlags.Ephemeral,
+      });
+    } else {
+      await interaction.reply({
+        content: 'There was an error while executing this command!',
+        flags: MessageFlags.Ephemeral,
+      });
+    }//End of if else statement
+
+  }//End of try catch
+
 });
 
 
