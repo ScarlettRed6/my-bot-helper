@@ -5,7 +5,8 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "start": "node --env-file=.env src/index.js"
+    "start": "node --env-file=.env src/index.js",
+    "deploy-commands": "node --env-file=.env src/deploy-commands.js"
   },
   "keywords": [],
   "author": "",
