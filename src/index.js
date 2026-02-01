@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { Client, Collection, Events, GatewayIntentBits, Message, MessageFlags } from 'discord.js';
+import { Client, Collection, Events, GatewayIntentBits, MessageFlags } from 'discord.js';
 
 const token = process.env.DISCORD_TOKEN;
 
