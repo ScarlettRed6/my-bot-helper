@@ -7,16 +7,13 @@ const token = process.env.DISCORD_TOKEN;
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
-client.once(Events.ClientReady, (readyClient) => {
-  console.log(`Ready! Logged in as ${readyClient.user.tag}`);
-});
-
 client.commands = new Collection();
 
 //Setup for command file path, this helps construct the file path 
 const foldersPath = path.join(import.meta.dirname, "commands");
 const commandFolders = fs.readdirSync(foldersPath);
 
+//The loop is for loading command files
 for (const folder of commandFolders) {
   const commandsPath = path.join(foldersPath, folder);
   const commandFiles = fs.readdirSync(commandsPath).filter((file) => file.endsWith('.js'));
