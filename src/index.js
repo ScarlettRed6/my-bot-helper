@@ -30,4 +30,18 @@ for (const folder of commandFolders) {
   }//End of inner loop
 }//End of outer loop
 
+//Get file path, filter files for events
+const eventsPath = path.join(import.meta.dirname, "events");
+const eventFiles = fs.readdirSync(eventsPath).filter((file) => file.endsWith('.js'));
+
+for (const file of eventFiles){
+  const filePath = path.join(eventsPath, file);
+  const { default: event } = await import(pathToFileURL(filePath).href);
+  if (event.once){
+    client.once(event.name, (...args) => event.execute(...args));
+  } else {
+    client.on(event.name, (...args) => event.execute(...args));
+  }
+}//End of loop for event file handling
+
 client.login(token);
