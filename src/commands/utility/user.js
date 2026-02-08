@@ -1,6 +1,7 @@
 import { SlashCommandBuilder } from "discord.js";
 
 export default {
+    cooldown: 10,
     data: new SlashCommandBuilder().setName('user').setDescription('Provides information about the user.'),
     async execute(interaction){
         await interaction.reply(

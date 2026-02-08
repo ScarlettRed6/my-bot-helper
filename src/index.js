@@ -8,6 +8,7 @@ const token = process.env.DISCORD_TOKEN;
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
 client.commands = new Collection();
+client.cooldowns = new Collection();
 
 //Setup for command file path, this helps construct the file path 
 const foldersPath = path.join(import.meta.dirname, "commands");
